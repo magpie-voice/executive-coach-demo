@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+:root {
+  --bg:          oklch(0.992 0.003 230);
+  --bg-alt:      oklch(0.975 0.004 220);
+  --surface:     #ffffff;
+  --ink:         oklch(0.20 0.012 230);
+  --ink-2:       oklch(0.36 0.012 230);
+  --mute:        oklch(0.52 0.010 230);
+  --mute-2:      oklch(0.68 0.008 230);
+  --line:        oklch(0.918 0.005 230);
+  --line-2:      oklch(0.955 0.004 230);
+  --teal:        oklch(0.40 0.060 200);
+  --teal-2:      oklch(0.33 0.065 200);
+  --teal-soft:   oklch(0.96 0.020 200);
+  --teal-tint:   oklch(0.92 0.030 200);
+  --amber:       oklch(0.66 0.130 65);
+  --rose:        oklch(0.58 0.140 25);
+  --emerald:     oklch(0.55 0.110 160);
+  --radius:      10px;
+  --radius-sm:   6px;
+  --radius-lg:   16px;
+  --shadow-1:    0 1px 2px rgba(16,24,40,.04), 0 1px 0 rgba(16,24,40,.02);
+  --shadow-2:    0 1px 2px rgba(16,24,40,.04), 0 8px 24px -8px rgba(16,24,40,.08);
+  --shadow-3:    0 1px 2px rgba(16,24,40,.05), 0 24px 60px -20px rgba(16,24,40,.18);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-mute: var(--mute);
+  --color-mute-2: var(--mute-2);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-teal: var(--teal);
+  --color-teal-2: var(--teal-2);
+  --color-teal-soft: var(--teal-soft);
+  --color-teal-tint: var(--teal-tint);
+  --color-amber: var(--amber);
+  --color-rose: var(--rose);
+  --color-emerald: var(--emerald);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-geist), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+/* Typography classes */
+.mono { font-family: var(--font-geist-mono), ui-monospace, monospace; font-feature-settings: "zero"; }
+.serif { font-family: var(--font-instrument-serif), Georgia, serif; font-style: italic; font-weight: 400; }
+.eyebrow { font-family: var(--font-geist-mono), ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--mute); font-weight: 500; }
+.h-display { font-size: 56px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 500; }
+.h1 { font-size: 32px; line-height: 1.15; letter-spacing: -0.018em; font-weight: 500; }
+.h2 { font-size: 22px; line-height: 1.25; letter-spacing: -0.012em; font-weight: 500; }
+.h3 { font-size: 17px; line-height: 1.35; letter-spacing: -0.005em; font-weight: 500; }
+.body-text { font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+.small { font-size: 13px; line-height: 1.5; color: var(--mute); }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px;
+  border-radius: var(--radius); font: inherit; font-weight: 500; font-size: 14px;
+  cursor: default; border: 1px solid transparent; transition: all .15s ease; white-space: nowrap;
+}
+.btn-primary {
+  background: var(--teal); color: #fff;
+  box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 1px 2px rgba(16,24,40,.08);
+}
+.btn-primary:hover { background: var(--teal-2); }
+.btn-secondary { background: var(--surface); color: var(--ink); border-color: var(--line); }
+.btn-secondary:hover { background: var(--bg-alt); border-color: oklch(0.88 0.005 230); }
+.btn-ghost { background: transparent; color: var(--ink-2); }
+.btn-ghost:hover { background: var(--bg-alt); color: var(--ink); }
+.btn-sm { height: 32px; padding: 0 12px; font-size: 13px; }
+.btn-lg { height: 48px; padding: 0 22px; font-size: 15px; }
+
+/* Pill / chip */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 9px;
+  font-size: 12px; font-weight: 500; border-radius: 999px; background: var(--bg-alt);
+  color: var(--ink-2); border: 1px solid var(--line); letter-spacing: .005em;
+}
+
+/* Inputs */
+.input, .textarea {
+  width: 100%; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); padding: 12px 14px;
+  font: inherit; font-size: 15px; color: var(--ink); resize: vertical;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.textarea { min-height: 110px; line-height: 1.55; }
+.input:focus, .textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px oklch(0.40 0.060 200 / 0.10); }
+.input::placeholder, .textarea::placeholder { color: var(--mute-2); }
+
+/* Animations */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pulseRing {
+  0%   { transform: scale(1);   opacity: .9; }
+  80%  { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+@keyframes orbBreathe {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.05); }
+}
+@keyframes orbIdle {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.015); }
+}
+@keyframes orbThink {
+  0%,100% { transform: scale(0.985) translateX(-1px); }
+  50%     { transform: scale(1.01) translateX(1px); }
+}
+@keyframes orbRing {
+  0%   { transform: scale(.85); opacity: .9; }
+  90%  { opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+@keyframes recPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+.fade-up { animation: fadeUp .42s cubic-bezier(.2,.7,.2,1) both; }
+.fade-in { animation: fadeIn .35s ease both; }
+.hover-lift { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.hover-lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); border-color: oklch(0.88 0.006 230); }
