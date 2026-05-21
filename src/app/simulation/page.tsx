@@ -71,7 +71,7 @@ function SimulationContent() {
       return;
     }
     try {
-      await conversation.startSession({ agentId });
+      await conversation.startSession({ agentId, connectionType: "webrtc" });
     } catch (e) {
       console.error("Failed to start session:", e);
       setPermissionError("Couldn't connect to the agent. Please try again.");
