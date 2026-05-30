@@ -7,11 +7,14 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import Icon from "@/components/shared/Icon";
 
 const GMs = [
-  { name: "Priya Raman", region: "Singapore", sessions: 18, score: 3.6, last: "2h ago", trend: "up" as const, delta: "+0.4", tier: "gold" as const, spark: [2.6, 2.8, 2.9, 3.0, 3.1, 3.2, 3.4, 3.6] },
+  { name: "Linh Tran", region: "Vietnam", sessions: 16, score: 3.5, last: "Today", trend: "up" as const, delta: "+0.5", tier: "gold" as const, spark: [2.5, 2.7, 2.9, 3.0, 3.1, 3.2, 3.4, 3.5] },
   { name: "Bruce Nguyen", region: "Vietnam", sessions: 14, score: 3.2, last: "Today", trend: "up" as const, delta: "+0.6", tier: "silver" as const, spark: [2.4, 2.5, 2.6, 2.6, 2.8, 2.9, 3.0, 3.2], you: true },
-  { name: "Marco Santos", region: "Philippines", sessions: 11, score: 3.1, last: "Yesterday", trend: "up" as const, delta: "+0.2", tier: "silver" as const, spark: [2.7, 2.8, 2.9, 2.9, 2.9, 3.0, 3.0, 3.1] },
-  { name: "Siriporn Jaidee", region: "Thailand", sessions: 9, score: 2.9, last: "3d ago", trend: "flat" as const, delta: "±0.0", tier: "bronze" as const, spark: [2.9, 2.9, 2.8, 2.9, 2.9, 2.8, 2.9, 2.9] },
-  { name: "Dewi Pratiwi", region: "Indonesia", sessions: 6, score: 2.5, last: "6d ago", trend: "down" as const, delta: "-0.3", tier: "bronze" as const, spark: [2.8, 2.8, 2.7, 2.7, 2.6, 2.6, 2.5, 2.5] },
+  { name: "Marco Santos", region: "Philippines", sessions: 12, score: 3.1, last: "Yesterday", trend: "up" as const, delta: "+0.2", tier: "silver" as const, spark: [2.7, 2.8, 2.9, 2.9, 2.9, 3.0, 3.0, 3.1] },
+  { name: "Channary Sok", region: "Cambodia", sessions: 10, score: 3.0, last: "2d ago", trend: "up" as const, delta: "+0.3", tier: "silver" as const, spark: [2.5, 2.6, 2.6, 2.7, 2.8, 2.8, 2.9, 3.0] },
+  { name: "Kasun Perera", region: "Sri Lanka", sessions: 9, score: 2.9, last: "3d ago", trend: "flat" as const, delta: "±0.0", tier: "bronze" as const, spark: [2.9, 2.9, 2.8, 2.9, 2.9, 2.8, 2.9, 2.9] },
+  { name: "Dewi Pratiwi", region: "Indonesia", sessions: 8, score: 2.8, last: "4d ago", trend: "up" as const, delta: "+0.1", tier: "bronze" as const, spark: [2.6, 2.6, 2.7, 2.7, 2.7, 2.7, 2.8, 2.8] },
+  { name: "Maria Clara Reyes", region: "Philippines", sessions: 7, score: 2.7, last: "5d ago", trend: "flat" as const, delta: "±0.0", tier: "bronze" as const, spark: [2.7, 2.7, 2.6, 2.7, 2.7, 2.6, 2.7, 2.7] },
+  { name: "Nuwan Silva", region: "Sri Lanka", sessions: 5, score: 2.4, last: "8d ago", trend: "down" as const, delta: "-0.2", tier: "bronze" as const, spark: [2.6, 2.6, 2.5, 2.5, 2.5, 2.4, 2.4, 2.4] },
 ];
 
 const COHORT_MEDIAN = 2.94;
@@ -31,9 +34,9 @@ export default function DashboardPage() {
       <NavBar />
       <div className="fade-in" style={{ padding: "40px 56px 80px" }}>
         <SectionHeader
-          eyebrow="GM cohort · APAC"
-          title="Team practice & progress."
-          sub="Five GMs across the region, ranked by 30-day average. Encourage, don't shame — the floor is more important than the ceiling here."
+          eyebrow="GM cohort · Kerry Travel"
+          title="Leadership performance dashboard."
+          sub="Eight GMs across five countries, ranked by 30-day average. Tracking ownership shifts, accountability, and commercial execution."
           right={
             <div style={{ display: "flex", gap: 10 }}>
               <button className="btn btn-secondary btn-sm"><Icon name="chart" size={14} /> Export</button>
@@ -46,10 +49,10 @@ export default function DashboardPage() {
 
         {/* KPI strip */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 28 }}>
-          <KPI k="Active GMs" v="5" sub="of 5 invited" />
-          <KPI k="Sessions this month" v="58" sub="+12 vs. last month" trend="up" />
-          <KPI k="Cohort avg score" v="3.06" sub="median 2.94" trend="up" />
-          <KPI k="At-risk practitioners" v="1" sub="last active 6d ago" trend="down" warn />
+          <KPI k="Active GMs" v="8" sub="of 8 enrolled" />
+          <KPI k="Sessions this month" v="81" sub="+18 vs. last month" trend="up" />
+          <KPI k="Cohort avg score" v="2.95" sub="median 2.90" trend="up" />
+          <KPI k="At-risk practitioners" v="1" sub="last active 8d ago" trend="down" warn />
         </div>
 
         {/* Leaderboard */}

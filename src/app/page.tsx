@@ -10,32 +10,79 @@ import Icon from "@/components/shared/Icon";
 const SCENARIOS = [
   {
     id: "stakeholder",
-    badge: "Most requested",
+    badge: "Live",
     title: "High-Pressure Stakeholder Conflict",
-    desc: "Navigate a tense conversation with a regional partner who feels blindsided by a Q3 commercial decision. Stay calm under direct pushback.",
+    desc: "Navigate a tense conversation with a regional partner who feels blindsided by a commercial decision. Stay calm under direct pushback and hold the decision.",
     duration: "12–18 min",
     difficulty: "Advanced",
     icon: "handshake",
     featured: true,
     counterpart: "Anh Le — VP, Channel Partners (Vietnam)",
+    agentId: "stakeholder",
   },
   {
-    id: "performance",
-    title: "Performance & Accountability",
-    desc: "Deliver candid feedback to a high-performing direct report whose recent output has slipped — without losing the relationship.",
-    duration: "10–14 min",
+    id: "team-conflict",
+    badge: "Live",
+    title: "Team Conflict",
+    desc: "Your Sales Manager and PAM lead are in open conflict over territory ownership. Both are strong performers but the tension is hurting the wider team.",
+    duration: "10–15 min",
     difficulty: "Intermediate",
-    icon: "target",
-    counterpart: "Senior Manager, 4 years tenure",
+    icon: "flame",
+    featured: true,
+    counterpart: "Raj Menon — Sales Manager",
+    agentId: "team-conflict",
   },
   {
-    id: "budget",
-    title: "Budget & Resource Negotiations",
-    desc: "Defend headcount in a mid-cycle review with a skeptical CFO. Anchor on outcomes, concede tactically, leave with what you need.",
-    duration: "15–20 min",
+    id: "reactive-leadership",
+    badge: "Live",
+    title: "Reactive Leadership",
+    desc: "Your regional director is about to tell you that you are too involved in operations and your team cannot make decisions without you. Hear the feedback and respond.",
+    duration: "10–14 min",
     difficulty: "Advanced",
-    icon: "scale",
-    counterpart: "CFO + FP&A lead",
+    icon: "target",
+    featured: true,
+    counterpart: "Karen Walsh — Regional Director",
+    agentId: "reactive-leadership",
+  },
+  {
+    id: "difficult-conversations",
+    badge: "Live",
+    title: "Difficult Conversations",
+    desc: "Have a tough performance conversation with your longest-serving Operations Manager. Strong loyalty, but results have been slipping for a quarter.",
+    duration: "10–15 min",
+    difficulty: "Intermediate",
+    icon: "user",
+    featured: true,
+    counterpart: "David Chen — Operations Manager, 6 yrs",
+    agentId: "difficult-conversations",
+  },
+];
+
+const REFLECTIONS = [
+  {
+    icon: "eye",
+    q: "Where in the last 30 days did you step in when someone on your team could have handled it?",
+    hint: "Think about the signal that sends — and what ownership shift would change it.",
+  },
+  {
+    icon: "shield",
+    q: "What decision are you avoiding right now, and what is it costing the business?",
+    hint: "Leaders often delay the hardest conversations. Name it, then plan it.",
+  },
+  {
+    icon: "compass",
+    q: "If you were removed from the business for two weeks, what would break first?",
+    hint: "That is your biggest dependency — and your first delegation priority.",
+  },
+  {
+    icon: "heart",
+    q: "Which team member has grown the most this quarter, and what did you do to enable it?",
+    hint: "Replicate what worked. Leadership is about building capability, not just delivering results.",
+  },
+  {
+    icon: "ear",
+    q: "When was the last time you asked for feedback on your leadership — and actually changed something?",
+    hint: "The team watches what you do, not what you say. Visible change builds trust.",
   },
 ];
 
@@ -58,29 +105,29 @@ export default function LandingPage() {
             <div>
               <div style={{ display: "flex", gap: 8, marginBottom: 22 }}>
                 <div className="pill" style={{ background: "var(--teal-soft)", color: "var(--teal-2)", borderColor: "transparent" }}>
-                  <Icon name="sparkles2" size={13} /> AI voice coaching · MAGPIE method
+                  <Icon name="sparkles2" size={13} /> AI-powered leadership performance
                 </div>
               </div>
               <h1 className="h-display" style={{ margin: 0 }}>
-                Practice high-stakes
+                Build leadership capability
                 <br />
-                conversations <span className="serif" style={{ color: "var(--teal)" }}>before</span> they happen.
+                that drives <span className="serif" style={{ color: "var(--teal)" }}>business results.</span>
               </h1>
-              <p className="body-text" style={{ marginTop: 22, fontSize: 17, maxWidth: 520 }}>
-                Live voice simulations against an AI counterpart trained on your region, your stakeholders, and your hardest conversations. Walk into the room rehearsed — and walk out with a scored debrief.
+              <p className="body-text" style={{ marginTop: 22, fontSize: 17, maxWidth: 540 }}>
+                A performance platform that connects leadership behavior directly to commercial outcomes. Practice real scenarios, track ownership shifts, and drive measurable movement — not just awareness.
               </p>
               <div style={{ display: "flex", gap: 12, marginTop: 32, alignItems: "center" }}>
                 <Link href="/setup" className="btn btn-primary btn-lg" style={{ textDecoration: "none" }}>
                   Start a practice session <Icon name="arrowRight" size={16} />
                 </Link>
                 <Link href="/dashboard" className="btn btn-ghost btn-lg" style={{ textDecoration: "none" }}>
-                  View team progress
+                  View GM dashboard
                 </Link>
               </div>
               <div style={{ display: "flex", gap: 28, marginTop: 36, color: "var(--mute)" }}>
-                <Stat n="2,140" l="sessions run" />
+                <Stat n="8" l="GMs enrolled" />
                 <Sep />
-                <Stat n="47" l="GMs across APAC" />
+                <Stat n="5" l="countries" />
                 <Sep />
                 <Stat n="+0.6" l="avg score lift / 90 days" />
               </div>
@@ -90,25 +137,62 @@ export default function LandingPage() {
         </section>
 
         {/* Scenarios */}
-        <section style={{ padding: "40px 56px 80px" }}>
+        <section style={{ padding: "40px 56px 64px" }}>
           <SectionHeader
-            eyebrow="Choose a scenario"
-            title="Three scenarios. Hundreds of variations."
-            sub="Each scenario seeds a counterpart with their own goals, leverage, and emotional state. No two runs play the same."
+            eyebrow="Practice scenarios"
+            title="Four scenarios. Tailored to your development needs."
+            sub="Each scenario seeds a counterpart with their own goals, leverage, and emotional state. Matched to your Deeper Signals assessment."
             right={
               <button className="btn btn-secondary btn-sm">
                 <Icon name="plus" size={14} /> Request a custom scenario
               </button>
             }
           />
-          <div style={{ display: "grid", gridTemplateColumns: "1.32fr 1fr 1fr", gap: 20, alignItems: "stretch" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, alignItems: "stretch" }}>
             {SCENARIOS.map((s) => (
               <ScenarioCard key={s.id} s={s} />
             ))}
           </div>
+        </section>
 
-          {/* Method strip */}
-          <div className="card" style={{ marginTop: 56, padding: "28px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
+        {/* Reflection Prompts */}
+        <section style={{ padding: "40px 56px 64px" }}>
+          <SectionHeader
+            eyebrow="Monthly reflections"
+            title="Questions to sit with before your next sprint."
+            sub="These prompts are designed to surface patterns in your leadership. Review them before your coaching session — come prepared, not reactive."
+          />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            {REFLECTIONS.map((r, i) => (
+              <div key={i} className="card" style={{ padding: "22px 26px", display: "flex", gap: 16 }}>
+                <div
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 8,
+                    background: "var(--teal-soft)",
+                    color: "var(--teal-2)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    marginTop: 2,
+                  }}
+                >
+                  <Icon name={r.icon} size={17} />
+                </div>
+                <div>
+                  <div className="h3" style={{ fontSize: 15, lineHeight: 1.45 }}>{r.q}</div>
+                  <div className="small" style={{ marginTop: 6, color: "var(--mute)" }}>{r.hint}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* LPS Method strip */}
+        <section style={{ padding: "0 56px 80px" }}>
+          <div className="card" style={{ padding: "28px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
               <div
                 style={{
@@ -125,14 +209,14 @@ export default function LandingPage() {
                 <Icon name="book" size={20} />
               </div>
               <div>
-                <div className="h3">The MAGPIE Method</div>
+                <div className="h3">Leadership Performance System</div>
                 <div className="small" style={{ marginTop: 4 }}>
-                  Five dimensions of executive presence, scored on every run. Built with the Asia-Pacific leadership faculty.
+                  Actions → Impact → Results. Connecting leadership behavior directly to business performance.
                 </div>
               </div>
             </div>
             <div style={{ display: "flex", gap: 10 }}>
-              {["Mindset", "Active listening", "Grit", "Perspective", "Influence & escalation"].map((m, i) => (
+              {["Assessment", "Performance input", "Review session", "Action plan", "Monthly follow-up"].map((m, i) => (
                 <div key={i} className="pill" style={{ background: "var(--bg)", borderColor: "var(--line)" }}>
                   <span className="mono" style={{ color: "var(--teal)", fontSize: 11 }}>
                     {String(i + 1).padStart(2, "0")}
@@ -164,9 +248,8 @@ function Sep() {
 }
 
 function ScenarioCard({ s }: { s: (typeof SCENARIOS)[number] }) {
-  const featured = s.featured;
   return (
-    <Link href={featured ? "/setup" : "#"} style={{ textDecoration: "none", color: "inherit" }}>
+    <Link href="/setup" style={{ textDecoration: "none", color: "inherit" }}>
       <div
         className="card hover-lift"
         style={{
@@ -175,8 +258,7 @@ function ScenarioCard({ s }: { s: (typeof SCENARIOS)[number] }) {
           flexDirection: "column",
           gap: 18,
           height: "100%",
-          background: featured ? "linear-gradient(180deg, oklch(0.98 0.020 200) 0%, #fff 60%)" : "#fff",
-          borderColor: featured ? "oklch(0.86 0.030 200)" : "var(--line)",
+          background: "#fff",
           position: "relative",
         }}
       >
@@ -201,20 +283,20 @@ function ScenarioCard({ s }: { s: (typeof SCENARIOS)[number] }) {
         )}
         <div
           style={{
-            width: 52,
-            height: 52,
+            width: 48,
+            height: 48,
             borderRadius: 12,
-            background: featured ? "var(--teal)" : "var(--teal-soft)",
-            color: featured ? "#fff" : "var(--teal-2)",
+            background: "var(--teal-soft)",
+            color: "var(--teal-2)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
         >
-          <Icon name={s.icon} size={22} />
+          <Icon name={s.icon} size={20} />
         </div>
         <div>
-          <div className="h2" style={{ marginBottom: 8 }}>{s.title}</div>
+          <div className="h2" style={{ marginBottom: 8, fontSize: 19 }}>{s.title}</div>
           <p className="body-text" style={{ margin: 0 }}>{s.desc}</p>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, paddingTop: 4 }}>
@@ -223,7 +305,7 @@ function ScenarioCard({ s }: { s: (typeof SCENARIOS)[number] }) {
           <KV k="Difficulty" v={s.difficulty} />
         </div>
         <div style={{ marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 8 }}>
-          <span className={featured ? "btn btn-primary" : "btn btn-secondary"}>
+          <span className="btn btn-primary">
             Start practice <Icon name="arrowRight" size={15} />
           </span>
           <span className="small" style={{ color: "var(--mute-2)" }}>Voice · 1:1</span>
@@ -278,56 +360,20 @@ function HeroVisual() {
             position: "relative",
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              inset: -14,
-              borderRadius: 999,
-              border: "1px solid oklch(0.40 0.07 200 / 0.18)",
-              animation: "pulseRing 2.6s ease-out infinite",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: -28,
-              borderRadius: 999,
-              border: "1px solid oklch(0.40 0.07 200 / 0.10)",
-              animation: "pulseRing 2.6s ease-out infinite .8s",
-            }}
-          />
+          <div style={{ position: "absolute", inset: -14, borderRadius: 999, border: "1px solid oklch(0.40 0.07 200 / 0.18)", animation: "pulseRing 2.6s ease-out infinite" }} />
+          <div style={{ position: "absolute", inset: -28, borderRadius: 999, border: "1px solid oklch(0.40 0.07 200 / 0.10)", animation: "pulseRing 2.6s ease-out infinite .8s" }} />
         </div>
       </div>
 
       {/* Waveform strip */}
       <div style={{ display: "flex", alignItems: "center", gap: 3, height: 44, marginTop: 4 }}>
         {bars.map((b, i) => (
-          <div
-            key={i}
-            style={{
-              flex: 1,
-              height: `${b * 100}%`,
-              borderRadius: 2,
-              background: i < 38 ? "var(--teal)" : "var(--line)",
-              opacity: i < 38 ? 0.55 + b * 0.45 : 1,
-            }}
-          />
+          <div key={i} style={{ flex: 1, height: `${b * 100}%`, borderRadius: 2, background: i < 38 ? "var(--teal)" : "var(--line)", opacity: i < 38 ? 0.55 + b * 0.45 : 1 }} />
         ))}
       </div>
 
       {/* Transcript line */}
-      <div
-        style={{
-          marginTop: 18,
-          padding: "12px 14px",
-          borderRadius: 10,
-          background: "var(--bg-alt)",
-          border: "1px solid var(--line-2)",
-          fontSize: 14,
-          lineHeight: 1.5,
-          color: "var(--ink-2)",
-        }}
-      >
+      <div style={{ marginTop: 18, padding: "12px 14px", borderRadius: 10, background: "var(--bg-alt)", border: "1px solid var(--line-2)", fontSize: 14, lineHeight: 1.5, color: "var(--ink-2)" }}>
         <span className="mono" style={{ fontSize: 10, letterSpacing: ".12em", color: "var(--mute)", display: "block", marginBottom: 4 }}>
           ANH LE · STAKEHOLDER
         </span>
