@@ -249,7 +249,7 @@ function Sep() {
 
 function ScenarioCard({ s }: { s: (typeof SCENARIOS)[number] }) {
   return (
-    <Link href="/setup" style={{ textDecoration: "none", color: "inherit" }}>
+    <Link href={`/setup?scenario=${s.id}`} style={{ textDecoration: "none", color: "inherit" }}>
       <div
         className="card hover-lift"
         style={{

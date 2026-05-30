@@ -1,31 +1,37 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ConversationProvider, useConversation } from "@elevenlabs/react";
 import Wordmark from "@/components/shared/Wordmark";
 import Icon from "@/components/shared/Icon";
+import { AGENT_IDS, SCENARIO_META } from "@/lib/scenarios";
 
 type Line = { role: "agent" | "user"; text: string };
 
 export default function SimulationPage() {
   return (
     <ConversationProvider>
-      <SimulationContent />
+      <Suspense fallback={<div style={{ padding: 56 }}>Loading…</div>}>
+        <SimulationContent />
+      </Suspense>
     </ConversationProvider>
   );
 }
 
 function SimulationContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const scenarioId = searchParams.get("scenario") || "stakeholder";
+  const meta = SCENARIO_META[scenarioId] || SCENARIO_META["stakeholder"];
+  const agentId = AGENT_IDS[scenarioId] || AGENT_IDS["stakeholder"];
+
   const [seconds, setSeconds] = useState(0);
   const [started, setStarted] = useState(false);
   const [transcript, setTranscript] = useState<Line[]>([]);
   const [confirmEnd, setConfirmEnd] = useState(false);
   const [permissionError, setPermissionError] = useState<string | null>(null);
   const transcriptEndRef = useRef<HTMLDivElement>(null);
-
-  const agentId = process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID || "";
 
   const conversation = useConversation({
     onMessage: (message: { source: string; message: string }) => {
@@ -88,6 +94,11 @@ function SimulationContent() {
 
   const agentState = !started ? "idle" : isConnecting ? "thinking" : isSpeaking ? "speaking" : "listening";
 
+  // Extract scenario label and counterpart first name for display
+  const counterpartFirst = meta.counterpartName.split(" ")[0] + " " + meta.counterpartName.split(" ").slice(1).join(" ");
+  const eyebrowParts = meta.eyebrow.split(" · ");
+  const scenarioLabel = eyebrowParts.length > 1 ? eyebrowParts.slice(1).join(" · ") : meta.eyebrow;
+
   return (
     <div
       style={{
@@ -123,8 +134,8 @@ function SimulationContent() {
             </span>
           </div>
           <div className="small" style={{ color: "var(--mute)" }}>
-            Scenario · <span style={{ color: "var(--ink-2)" }}>Stakeholder conflict</span> · with{" "}
-            <span style={{ color: "var(--ink-2)" }}>Anh Le</span>
+            Scenario · <span style={{ color: "var(--ink-2)" }}>{scenarioLabel}</span> · with{" "}
+            <span style={{ color: "var(--ink-2)" }}>{meta.counterpartName}</span>
           </div>
           <div style={{ width: 140 }} />
         </div>
@@ -135,7 +146,7 @@ function SimulationContent() {
           <div style={{ textAlign: "center" }}>
             <div className="mono" style={{ fontSize: 11, letterSpacing: ".16em", color: "var(--mute)", marginBottom: 10 }}>
               {agentState === "speaking"
-                ? "ANH LE · SPEAKING"
+                ? `${meta.counterpartName.toUpperCase()} · SPEAKING`
                 : agentState === "listening"
                 ? "LISTENING · YOUR TURN"
                 : agentState === "thinking"
@@ -148,7 +159,7 @@ function SimulationContent() {
               </button>
             )}
             {agentState === "thinking" && (
-              <div style={{ fontSize: 18, color: "var(--mute)" }}>Connecting to Anh Le…</div>
+              <div style={{ fontSize: 18, color: "var(--mute)" }}>Connecting to {meta.counterpartName}…</div>
             )}
             {permissionError && (
               <div style={{ marginTop: 16, fontSize: 14, color: "var(--rose)" }}>{permissionError}</div>
@@ -173,7 +184,7 @@ function SimulationContent() {
                   }}
                 >
                   <span className="mono" style={{ fontSize: 10, letterSpacing: ".12em", color: "var(--mute-2)", minWidth: 70, textTransform: "uppercase", paddingTop: 3 }}>
-                    {line.role === "user" ? "You" : "Anh Le"}
+                    {line.role === "user" ? "You" : meta.counterpartName}
                   </span>
                   <span style={{ fontSize: 13.5, lineHeight: 1.5, color: "var(--ink-2)" }}>{line.text}</span>
                 </div>
